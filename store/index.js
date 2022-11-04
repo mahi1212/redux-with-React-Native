@@ -1,11 +1,10 @@
-import { ThemeProvider } from '@react-navigation/native';
 import { configureStore, combineReducers } from '@reduxjs/toolkit'
 import counterReducer from './counterSlice'
-import themeReducer from './themeSlice'
+import themerReducer from './themeSlice'
 // 1. Create Reducer
 const rootReducer = combineReducers({
     counter : counterReducer,
-    theme : themeReducer,
+    theme : themerReducer,
 })
 
 // 2. Create Store

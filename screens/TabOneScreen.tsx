@@ -13,43 +13,45 @@ export default function TabOneScreen({
   const dispatch = useDispatch();
   const count = useSelector(selectCount);
   const mode = useSelector(selectTheme);
-  const bgColor = mode === "light" ? "white" : "black"
-  const textColor = mode === "light" ? 'black' : 'white'
-  
-  return (
-    <View style={[styles.container, {backgroundColor: bgColor}]}>
-      <Text style={[styles.title, {color: textColor}]} >Count Value : {count}</Text>
+  const bgColor = mode == "light" ? "white" : "black";
+  const textColor = mode == "light" ? "black" : "white";
 
-      <View style={[styles.buttons, {backgroundColor: bgColor}]}>
+  return (
+    <View style={[styles.container, { backgroundColor: bgColor }]}>
+      <Text style={[styles.title, { color: textColor }]}>
+        Count Value : {count}
+      </Text>
+
+      <View style={[styles.buttons, { backgroundColor: bgColor }]}>
         <Pressable
           style={styles.signleButton}
           onPress={() => {
             dispatch(decrement());
           }}
         >
-          <Text style={{color: textColor}}>Decrement</Text>
+          <Text style={{ color: textColor }}>Decrement</Text>
         </Pressable>
         <Pressable
           style={styles.signleButton}
           onPress={() => dispatch(increment())}
         >
-          <Text style={{color: textColor}}>Increment</Text>
+          <Text style={{ color: textColor }}>Increment</Text>
         </Pressable>
       </View>
 
-
-      <View style={[styles.buttons, {backgroundColor: bgColor}]}>
+      {/* theme changing code */}
+      <View style={[styles.buttons, { backgroundColor: bgColor }]}>
         <Pressable
           style={styles.signleButton2}
-          onPress={() => dispatch(toggleTheme("black"))}
+          onPress={() => dispatch(toggleTheme("dark"))}
         >
-          <Text style={{color: textColor}}>Dark Theme</Text>
+          <Text style={{ color: textColor }}>Dark Theme</Text>
         </Pressable>
         <Pressable
           style={[styles.signleButton2]}
           onPress={() => dispatch(toggleTheme("light"))}
         >
-          <Text style={{color: textColor}}>Light Theme</Text>
+          <Text style={{ color: textColor }}>Light Theme</Text>
         </Pressable>
       </View>
     </View>
@@ -66,24 +68,17 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
   },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
-  },
   buttons: {
     flexDirection: "row",
-    // flexFlow : 1
-    overflow: "scroll",
   },
   signleButton: {
-    backgroundColor: "gray",
+    backgroundColor: "lightgray",
     padding: 20,
     margin: 10,
   },
-  signleButton2:{
+  signleButton2: {
     backgroundColor: "lightgreen",
-    padding: 20,
+    padding: 16,
     margin: 10,
-  }
+  },
 });
