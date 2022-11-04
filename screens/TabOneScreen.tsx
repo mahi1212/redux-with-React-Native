@@ -1,22 +1,55 @@
-import { Pressable, StyleSheet } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { Pressable, StyleSheet } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 
-import EditScreenInfo from '../components/EditScreenInfo';
-import { Text, View } from '../components/Themed';
-import { decrement, increment } from '../store/counterSlice';
-import { RootTabScreenProps } from '../types';
+import EditScreenInfo from "../components/EditScreenInfo";
+import { Text, View } from "../components/Themed";
+import { decrement, increment, selectCount } from "../store/counterSlice";
+import { selectTheme, toggleTheme } from "../store/themeSlice";
+import { RootTabScreenProps } from "../types";
 
-export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
-  const dispatch = useDispatch()
+export default function TabOneScreen({
+  navigation,
+}: RootTabScreenProps<"TabOne">) {
+  const dispatch = useDispatch();
+  const count = useSelector(selectCount);
+  const mode = useSelector(selectTheme);
+  const bgColor = mode === "light" ? "white" : "black"
+  const textColor = mode === "light" ? 'black' : 'white'
+  
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      <View style={styles.buttons}>
-        <Pressable style={styles.signleButton} onPress = {()=> dispatch(increment())}>
-          <Text>Increment</Text>
+    <View style={[styles.container, {backgroundColor: bgColor}]}>
+      <Text style={[styles.title, {color: textColor}]} >Count Value : {count}</Text>
+
+      <View style={[styles.buttons, {backgroundColor: bgColor}]}>
+        <Pressable
+          style={styles.signleButton}
+          onPress={() => {
+            dispatch(decrement());
+          }}
+        >
+          <Text style={{color: textColor}}>Decrement</Text>
         </Pressable>
-        <Pressable style={styles.signleButton} onPress={() => {dispatch(decrement())}}>
-          <Text>Decrement</Text>
+        <Pressable
+          style={styles.signleButton}
+          onPress={() => dispatch(increment())}
+        >
+          <Text style={{color: textColor}}>Increment</Text>
+        </Pressable>
+      </View>
+
+
+      <View style={[styles.buttons, {backgroundColor: bgColor}]}>
+        <Pressable
+          style={styles.signleButton2}
+          onPress={() => dispatch(toggleTheme("black"))}
+        >
+          <Text style={{color: textColor}}>Dark Theme</Text>
+        </Pressable>
+        <Pressable
+          style={[styles.signleButton2]}
+          onPress={() => dispatch(toggleTheme("light"))}
+        >
+          <Text style={{color: textColor}}>Light Theme</Text>
         </Pressable>
       </View>
     </View>
@@ -26,26 +59,31 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   title: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   separator: {
     marginVertical: 30,
     height: 1,
-    width: '80%',
+    width: "80%",
   },
-  buttons:{
-    flexDirection: 'row',
+  buttons: {
+    flexDirection: "row",
     // flexFlow : 1
-    
+    overflow: "scroll",
   },
-  signleButton :{
-    backgroundColor: 'purple',
+  signleButton: {
+    backgroundColor: "gray",
     padding: 20,
-    margin: 10
+    margin: 10,
+  },
+  signleButton2:{
+    backgroundColor: "lightgreen",
+    padding: 20,
+    margin: 10,
   }
 });
