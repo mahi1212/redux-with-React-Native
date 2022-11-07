@@ -1,7 +1,6 @@
 import { Pressable, StyleSheet } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
-import EditScreenInfo from "../components/EditScreenInfo";
 import { Text, View } from "../components/Themed";
 import { decrement, increment, selectCount } from "../store/counterSlice";
 import { selectTheme, toggleTheme } from "../store/themeSlice";
